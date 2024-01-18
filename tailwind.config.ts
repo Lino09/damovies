@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         dacolors:{
-          cyan : '#3AE3C387',
+          cyan : '#3AE3C3',
           blue: '#468DD8',
           purple: '#5141EA',
           bgc: '#03067B'

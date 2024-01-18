@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-
 const UserIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -17,7 +16,7 @@ const UserIcon = () => (
 const Header = () => (
   <header className="h-28 w-full flex bg-dacolors-purple items-center justify-between text-white px-4 lg:px-36">
     <figure className="flex items-center">
-      <Image width={48} height={64} src="/logo.png" alt="logo" />
+      <Image width={37} height={48} src="/logo.png" alt="logo" className="h-auto"/>
       <figcaption className="font-semibold text-xl">DaMovies.</figcaption>
     </figure>
     <UserIcon />

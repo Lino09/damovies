@@ -1,3 +1,30 @@
+'use client'
+import Input from "@/components/Input";
+import { FormEvent, useState } from "react";
+import Button from "@/components/Button"
+import { everyArg } from "@/utils/helpers";
+
+
 export default function Login() {
-  <form></form>
+
+  const [formData, setFormData] = useState({mail:'', password:'',termsAndConditions: false})
+
+  const onChangeFormData = (name:string, value:string|boolean) => setFormData({...formData, [name]: value})
+
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+  }
+
+  return (
+    <main className="bg-dacolors-bgc text-white px-4 lg:px-36 pt-20 pb-24">
+      <h1 className="text-3xl font-semibold">Login</h1>
+      <span>Bienvenido!</span>
+      <form className="max-w-2xl w-full flex flex-col gap-12 mt-20" onSubmit={submit}>
+        <Input type="mail" label="Correo electrónico de DaCodes" name="mail" onChange={onChangeFormData} value={formData.mail} />
+        <Input type="password" label="Contraseña" name="password" onChange={onChangeFormData} value={formData.password} />
+        <Input type="checkbox" label="He leido y acepto los términos y condiciones" name="termsAndConditions" onChange={onChangeFormData} checked={formData.termsAndConditions} />
+        <Button type="submit" variant="primary" disabled={!everyArg(...Object.values(formData))} >Crear cuenta</Button>
+      </form>
+    </main>
+  )
 }
