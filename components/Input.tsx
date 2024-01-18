@@ -1,16 +1,14 @@
-'use client'
-import { InputProps } from "@/utils/types"
-import { useState } from "react"
+"use client";
+import { InputProps } from "@/utils/types";
+import { useState } from "react";
 
-const Input = ({type, label, name, value, checked, onChange }:InputProps) => {
-
-  const [inUse, setInUse] = useState(false)
+const Input = ({ type, label, name, value, checked, onChange }: InputProps) => {
+  const [inUse, setInUse] = useState(false);
   const onBlur = () => {
-    if(value === '') setInUse(false)
-  }
+    if (value === "") setInUse(false);
+  };
 
-
-  if(type === 'checkbox') {
+  if (type === "checkbox") {
     return (
       <label htmlFor={name} className="flex gap-2 pl-2">
         <input
@@ -21,30 +19,37 @@ const Input = ({type, label, name, value, checked, onChange }:InputProps) => {
           id={name}
           name={name}
           checked={checked}
-          onChange={(e) => onChange(name, e.target.checked )} />
+          onChange={(e) => onChange(name, e.target.checked)}
+        />
         <span className="italic text-sm">{label}</span>
       </label>
-    )
+    );
   }
 
   return (
-      <label htmlFor={name} onFocus={() => setInUse(true)} className="relative rounded-3xl bg-dacolors-purple pb-2 pl-4 pt-3 w-full" >
-        <span className={`pointer-events-none transform transition-all absolute ${inUse ? 'text-xs -translate-y-8':'translate-y-0'}`} >
-          {label}
-        </span>
-        <input
-          autoComplete="false"
-          required
-          className="bg-transparent w-full rounded-3xl focus:ring-0 focus:outline-none"
-          type={type}
-          id={name}
-          name={name}
-          value={value}
-          onChange={(e) => onChange(name, e.target.value )}
-          onBlur={onBlur}/>
+    <label
+      htmlFor={name}
+      onFocus={() => setInUse(true)}
+      className="relative rounded-3xl bg-dacolors-purple pb-2 pl-4 pt-3 w-full"
+    >
+      <span
+        className={`pointer-events-none transform transition-all absolute ${inUse ? "text-xs -translate-y-8" : "translate-y-0"}`}
+      >
+        {label}
+      </span>
+      <input
+        autoComplete="false"
+        required
+        className="bg-transparent w-full rounded-3xl focus:ring-0 focus:outline-none"
+        type={type}
+        id={name}
+        name={name}
+        value={value}
+        onChange={(e) => onChange(name, e.target.value)}
+        onBlur={onBlur}
+      />
     </label>
-  )
+  );
+};
 
-}
-
-export default Input
+export default Input;
