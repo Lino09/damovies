@@ -33,6 +33,7 @@ const Input = ({type, label, name, value, checked, onChange }:InputProps) => {
           {label}
         </span>
         <input
+          autoComplete="false"
           required
           className="bg-transparent w-full rounded-3xl focus:ring-0 focus:outline-none"
           type={type}

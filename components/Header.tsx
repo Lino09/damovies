@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const UserIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg"
@@ -15,11 +16,15 @@ const UserIcon = () => (
 
 const Header = () => (
   <header className="h-28 w-full flex bg-dacolors-purple items-center justify-between text-white px-4 lg:px-36">
-    <figure className="flex items-center">
-      <Image width={37} height={48} src="/logo.png" alt="logo" className="h-auto"/>
-      <figcaption className="font-semibold text-xl">DaMovies.</figcaption>
-    </figure>
-    <UserIcon />
+    <Link href="/" >
+      <figure className="flex items-center">
+        <Image width={37} height={48} src="/logo.png" alt="logo" className="h-auto"/>
+        <figcaption className="font-semibold text-xl">DaMovies.</figcaption>
+      </figure>
+    </Link>
+    <Link href="/login">
+      <UserIcon />
+    </Link>
   </header>
 )
 

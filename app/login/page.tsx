@@ -3,16 +3,30 @@ import Input from "@/components/Input";
 import { FormEvent, useState } from "react";
 import Button from "@/components/Button"
 import { everyArg } from "@/utils/helpers";
+import { authService } from "@/services/authService";
+import { useRouter } from 'next/navigation'
 
 
 export default function Login() {
 
+  const router = useRouter()
+
   const [formData, setFormData] = useState({mail:'', password:'',termsAndConditions: false})
 
-  const onChangeFormData = (name:string, value:string|boolean) => setFormData({...formData, [name]: value})
+  const onChangeFormData = (name:string, value:string | boolean) => setFormData({...formData, [name]: value})
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async(event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    try {
+      const data = await authService.login()
+      const {guest_session_id} = data
+      document.cookie = `userSession=${guest_session_id}; max-age=3600`
+      router.push('/')
+
+  
+    }catch(err){
+      console.log(err)
+    }
   }
 
   return (
