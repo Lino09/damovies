@@ -23,7 +23,7 @@ export default function Login() {
     try {
       const data = await authService.login();
       const { guest_session_id } = data;
-      document.cookie = `userSession=${guest_session_id}; max-age=3600`;
+      document.cookie = `userSession=${guest_session_id}; max-age=3600; SameSite=None; Secure`;
       setTimeout(() => {
         router.push("/")
       }, 1000)
