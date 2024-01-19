@@ -35,6 +35,7 @@ export default function Login() {
       <h1 className="text-3xl font-semibold">Login</h1>
       <span>Bienvenido!</span>
       <form
+        autoComplete="off"
         className="max-w-2xl w-full flex flex-col gap-12 mt-20"
         onSubmit={submit}
       >
