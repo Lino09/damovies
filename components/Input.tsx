@@ -5,7 +5,7 @@ import { useState } from "react";
 const Input = ({ type, label, name, value, checked, onChange }: InputProps) => {
   const [inUse, setInUse] = useState(false);
   const onBlur = () => {
-    if (value === "") setInUse(false);
+    if (!value) setInUse(false);
   };
 
   if (type === "checkbox") {

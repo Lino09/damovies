@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { moviesService } from "@/services/moviesService";
-import Image from "next/image";
-import { halfStar, star, fullStar, Film, Chevron } from "@/components/Icons";
+import Image, { ImageLoader } from "next/image";
+import { Movie } from "@/utils/types";
+import { HalfStar, Star, FullStar, Film, Chevron } from "@/components/Icons";
 
 export default function Home() {
   const topics = ["Now Playing", "Popular", "Top Rated", "Upcoming"];
@@ -21,15 +22,23 @@ export default function Home() {
       console.log(err);
     }
   };
-  const getRating = (votes: number) => {
-    const base5 = Math.round(votes) / 2;
+  const getRating = ({
+    vote_average,
+    id,
+  }: {
+    vote_average: number;
+    id: string;
+  }) => {
+    const base5 = Math.round(vote_average) / 2;
     const rating = [];
     for (let i = 1; i <= 5; i++) {
-      if (base5 < i && base5 === i - 0.5) rating.push(halfStar());
-      else if (base5 >= i) rating.push(fullStar());
-      else rating.push(star());
+      if (base5 < i && base5 === i - 0.5) rating.push(<HalfStar />);
+      else if (base5 >= i) rating.push(<FullStar />);
+      else rating.push(<Star />);
     }
-    return rating;
+    return rating.map((el, index) => (
+      <i key={id + index + vote_average}>{el}</i>
+    ));
   };
   const updatePage = (variation: number) => {
     if (page + variation > 0 && page + variation <= totalPages)
@@ -41,7 +50,15 @@ export default function Home() {
     fetchMovies(EP);
   }, [current, page]);
 
-  const imageLoader = ({ src, width, quality }: any) => {
+  const imageLoader = ({
+    src,
+    width,
+    quality,
+  }: {
+    src: string;
+    width: number;
+    quality: string;
+  }) => {
     return `https://image.tmdb.org/t/p/original${src}`;
   };
 
@@ -68,11 +85,12 @@ export default function Home() {
         <h1 className="text-3xl">{current}</h1>
         <span></span>
         <ul className="flex flex-wrap gap-12 justify-center mt-20 w-full">
-          {movies.map((movie: any) => (
+          {movies.map((movie: Movie) => (
             <li key={movie.id} className="w-60 h-80 relative rounded-lg">
               <Image
+                sizes="20vw"
                 fill={true}
-                loader={imageLoader}
+                loader={imageLoader as unknown as ImageLoader}
                 src={movie.poster_path}
                 alt={"poster"}
                 className="rounded-3xl absolute z-10"
@@ -85,7 +103,7 @@ export default function Home() {
                 <p className="h-full max-h-36 overflow-hidden text-ellipsis text-xs">
                   {movie.overview}
                 </p>
-                <span className="flex">{getRating(movie.vote_average)}</span>
+                <span className="flex">{getRating(movie)}</span>
               </div>
             </li>
           ))}

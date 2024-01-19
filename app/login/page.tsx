@@ -40,7 +40,7 @@ export default function Login() {
         onSubmit={submit}
       >
         <Input
-          type="mail"
+          type="email"
           label="Correo electrónico de DaCodes"
           name="mail"
           onChange={onChangeFormData}
