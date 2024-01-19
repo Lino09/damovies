@@ -24,8 +24,9 @@ export default function Login() {
       const data = await authService.login();
       const { guest_session_id } = data;
       document.cookie = `userSession=${guest_session_id}; max-age=3600; SameSite=None; Secure`;
+      router.push("/")
       setTimeout(() => {
-        router.push("/")
+        window.location.href = "/"
       }, 1000)
     } catch (err) {
       console.log(err);
